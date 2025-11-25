@@ -7,7 +7,7 @@ from pages.kiwi_page import MainPage, DatePicker
 #     "start, stop, days_delay", [("RTM", "MAD", 5), ("RTM", "MAD", 10)]
 # )
 @pytest.mark.parametrize("start, stop, days_delay", [("RTM", "MAD", 10)])
-def test_kiwi(page: Page, start: str, stop: str, days_delay: int):
+def test_basic_search(page: Page, start: str, stop: str, days_delay: int):
     mp = MainPage(page)
     dp = DatePicker(page)
 
