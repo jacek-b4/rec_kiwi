@@ -1,0 +1,13 @@
+services:
+  playwright-tests:
+    build: .
+    working_dir: "/app"
+    hostname: "playwright-tests"
+    command: "pytest"
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+    - type: bind
+      source: .
+      target: /app

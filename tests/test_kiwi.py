@@ -8,6 +8,9 @@ from pages.kiwi_page import MainPage, DatePicker
 # )
 @pytest.mark.parametrize("start, stop, days_delay", [("RTM", "MAD", 10)])
 def test_basic_search(page: Page, start: str, stop: str, days_delay: int):
+    """
+    Test to verify basic one-way flight search from Rotterdam to Madrid
+    """
     mp = MainPage(page)
     dp = DatePicker(page)
 
