@@ -89,12 +89,6 @@ class DatePicker:
         self.page = page
 
         self.set_dates = page.locator('[data-test="SearchFormDoneButton"]')
-        self.calendar_left = page.locator(
-            'div:nth-child(1) > div > div[data-test="CalendarContainer"]'
-        )
-        self.calendar_right = page.locator(
-            'div:nth-child(2) > div > div[data-test="CalendarContainer"]'
-        )
 
     @staticmethod
     def days_ahead(days: int) -> datetime:
@@ -103,18 +97,20 @@ class DatePicker:
 
     @staticmethod
     def day_button_name(day: int) -> None:
-        return re.compile(f"^Left\s{day}\s")
+        return re.compile(f"^Left( Depart on)?\s{day}\s")
+    
+    def date_button_loc(self, day:int) -> Locator:
+        return self.page.get_by_role("button", name=self.day_button_name(day))
 
     def set_date(self, date: datetime) -> None:
         current_date = datetime.now()
-        calendar_loc: Locator = None
+        self.page.pause()
         if date.month == current_date.month:
-            calendar_loc = self.calendar_left
+            self.date_button_loc(date.day).first.click()
         elif date.month % 12 == (current_date.month + 1) % 12:
-            calendar_loc = self.calendar_right
+            self.date_button_loc(date.day).last.click()
         else:
             raise "Date too far in future, browsing calendar not supported"
-        calendar_loc.get_by_role("button", name=self.day_button_name(date.day)).click()
 
     def set_calendar_dates(
         self, departure_date: datetime, return_date: datetime = None
