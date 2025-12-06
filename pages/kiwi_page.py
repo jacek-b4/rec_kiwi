@@ -104,7 +104,6 @@ class DatePicker:
 
     def set_date(self, date: datetime) -> None:
         current_date = datetime.now()
-        self.page.pause()
         if date.month == current_date.month:
             self.date_button_loc(date.day).first.click()
         elif date.month % 12 == (current_date.month + 1) % 12:

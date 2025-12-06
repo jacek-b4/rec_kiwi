@@ -11,19 +11,19 @@ def test_basic_search(page: Page, start: str, stop: str, days_delay: int):
     """
     Test to verify basic one-way flight search from Rotterdam to Madrid
     """
-    mp = MainPage(page)
-    dp = DatePicker(page)
+    kiwi_page = MainPage(page)
+    date_picker = DatePicker(page)
 
-    mp.enter_page()
-    mp.reject_cookie_alert_if_exist()
-    mp.set_one_way_trip()
-    mp.clear_dest_and_arrive_fields()
-    mp.set_flight_from(start)
-    mp.set_flight_to(stop)
-    mp.enter_calendar()
-    dp.set_calendar_dates(departure_date=dp.days_ahead(days_delay))
-    mp.toggle_accommodation(enabled=False)
-    mp.run_search()
-    mp.wait_for_results()
+    kiwi_page.enter_page()
+    kiwi_page.reject_cookie_alert_if_exist()
+    kiwi_page.set_one_way_trip()
+    kiwi_page.clear_dest_and_arrive_fields()
+    kiwi_page.set_flight_from(start)
+    kiwi_page.set_flight_to(stop)
+    kiwi_page.enter_calendar()
+    date_picker.set_calendar_dates(departure_date=date_picker.days_ahead(days_delay))
+    kiwi_page.toggle_accommodation(enabled=False)
+    kiwi_page.run_search()
+    kiwi_page.wait_for_results()
     page.screenshot(path=f"last-result-{days_delay}.png")
     assert page.title() == "Rotterdam‎ – Madrid‎ trips", "Not finished on expected page"
